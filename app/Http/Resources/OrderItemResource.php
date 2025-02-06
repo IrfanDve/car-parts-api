@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class OrderItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'items' => OrderItemResource::collection($this->items),
+            'car_part_id' => $this->car_part_id,
+            'quantity' => $this->quantity,
+            'total_price' => $this->total_price,
         ];
     }
 }
