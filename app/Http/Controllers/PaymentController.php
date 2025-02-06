@@ -1,58 +1,26 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\CarPart;
+use App\Models\Payment;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+use Stripe\PaymentIntent;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
+    // Create a payment link for an order
     public function createPaymentLink(Order $order)
     {
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-        $paymentLink = \Stripe\PaymentLink::create([
+        // Calculate the total price of the order from order_items
+        $totalPrice = $order->items->sum('total_price');
+
+        // Create a Stripe Checkout Session
+        $session = Session::create([
+            'payment_method_types' => ['card'],
             'line_items' => [
                 [
                     'price_data' => [
@@ -60,36 +28,63 @@ class PaymentController extends Controller
                         'product_data' => [
                             'name' => 'Order #' . $order->id,
                         ],
-                        'unit_amount' => $order->total * 100,
+                        'unit_amount' => $totalPrice * 100, // Amount in cents
                     ],
                     'quantity' => 1,
                 ],
             ],
+            'mode' => 'payment',
+            'success_url' => url('/payment/success?session_id={CHECKOUT_SESSION_ID}'),
+            'cancel_url' => url('/payment/cancel'),
         ]);
 
-        return response()->json(['payment_link' => $paymentLink->url]);
+        // Create a payment record in the payments table
+        Payment::create([
+            'order_id' => $order->id,
+            'amount' => $totalPrice,
+            'transaction_id' => $session->payment_intent,
+            'payment_method' => 'card', // Default value, can be updated later
+            'status' => 'pending',
+        ]);
+
+        return response()->json([
+            'payment_link' => $session->url,
+        ]);
     }
 
-    public function export()
+    // Validate payment and update payment status
+    public function validatePayment(Request $request, Order $order)
     {
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="car_parts.csv"',
-        ];
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-        $carParts = CarPart::all();
+        // Retrieve the Stripe session
+        $session = Session::retrieve($order->payments()->latest()->first()->transaction_id);
 
-        $callback = function () use ($carParts) {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, ['ID', 'Name', 'Category', 'Price', 'Stock Quantity']);
+        // Check if the payment was successful
+        if ($session->payment_status === 'paid') {
+            // Update the payment status to "completed"
+            $payment = $order->payments()->latest()->first();
+            $payment->update([
+                'status' => 'completed',
+                'transaction_id' => $session->payment_intent,
+                'payment_method' => $session->payment_method_types[0], // e.g., card
+            ]);
 
-            foreach ($carParts as $carPart) {
-                fputcsv($file, [$carPart->id, $carPart->name, $carPart->category, $carPart->price, $carPart->stock_quantity]);
-            }
+            // Update the order status to "completed"
+            $order->update(['status' => 'completed']);
 
-            fclose($file);
-        };
+            return response()->json([
+                'message' => 'Payment verified and order status updated to completed.',
+                'payment_details' => [
+                    'amount' => $payment->amount,
+                    'transaction_id' => $payment->transaction_id,
+                    'payment_method' => $payment->payment_method,
+                ],
+            ]);
+        }
 
-        return response()->stream($callback, 200, $headers);
+        return response()->json([
+            'message' => 'Payment not yet completed.',
+        ], 400);
     }
 }

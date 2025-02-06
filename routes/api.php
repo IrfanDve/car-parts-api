@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payments
     Route::post('orders/{order}/create-payment-link', [PaymentController::class, 'createPaymentLink']);
     Route::post('orders/{order}/validate-payment', [PaymentController::class, 'validatePayment']);
+    Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 });
 
 // Authentication
