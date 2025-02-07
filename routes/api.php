@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // Authentication
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register'])->middleware('throttle:3,1'); // 3 attempts per minute;
+Route::post('login', [AuthController::class, 'login']) ->middleware('throttle:5,1'); // 5 attempts per minute;
 
 // CSV Export Route
 Route::get('car-parts/export', [CarPartController::class, 'export']);

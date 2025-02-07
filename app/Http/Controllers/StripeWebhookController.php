@@ -20,7 +20,6 @@ class StripeWebhookController extends Controller
         $sigHeader = $request->header('Stripe-Signature');
 
         try {
-            // Verify webhook signature
             $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
             
             Log::info('Stripe webhook received', [
