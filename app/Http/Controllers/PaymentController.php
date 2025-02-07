@@ -72,6 +72,7 @@ class PaymentController extends Controller
 
             return DB::transaction(function () use ($order) {
                 $payment = $order->payments()->latest()->firstOrFail();
+                
                 $session = Session::retrieve($payment->transaction_id);
 
                 if ($session->payment_status !== 'paid') {
