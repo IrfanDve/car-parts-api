@@ -14,14 +14,15 @@ class CarPartController extends Controller
         $query = CarPart::query();
 
         // Filter by category
-        if ($request->has('category')) {
-            $query->where('category', $request->category);
-        }
+        if ($request->filled('category')) {
+            $query->where('category', $request->input('category'));
+        }        
 
         // Filter by price range
-        if ($request->has('min_price') && $request->has('max_price')) {
-            $query->whereBetween('price', [$request->min_price, $request->max_price]);
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $query->whereBetween('price', [(float) $request->input('min_price'), (float) $request->input('max_price')]);
         }
+        
 
         // Pagination with flexibility for items per page (default to 10)
         $perPage = $request->get('per_page', 10); 
