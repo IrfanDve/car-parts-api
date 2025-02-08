@@ -35,9 +35,48 @@ Follow these steps to set up the project locally:
    ```bash
    git clone https://github.com/IrfanDve/car-parts-api.git
    cd car-parts-api
+2. **Install Dependencies**
+       Make sure you have Composer installed.
+       Run the following command to install PHP dependencies:
+   ```bash
+   composer install
+3. **Set Up Environment File**
+       Copy the .env.example file to .env:
+   ```bash
+   cp .env.example .env
+   ##Update the .env file with your database credentials and other environment variables:
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=car_parts_db
+   DB_USERNAME=root
+   DB_PASSWORD=your_password
+4. **Generate Application Key**
+   Run the following command to generate a unique application key:
+   ```bash
+   php artisan key:generate
+5. **Run Migrations**
+   Migrate the database tables:
+   ```bash
+   php artisan migrate
+## Running the API
 
-### car-parts-api
+1. **Start the Development Server**
+   Run the Laravel development server:
+   ```bash
+   php artisan serve
+2. **Access the API**
+   Use tools like Postman or cURL to interact with the API.
 
+## Testing the API
+
+1. **Test Endpoints Manuallyr**
+    Use Postman or cURL to test the API endpoints. Below are some example requests:
+   ### List Car Parts
+    ```bash
+    curl -X GET http://127.0.0.1:8000/api/car-parts
+
+## API Endpoints
 ### Car Parts Management
 
 #### List Car Parts
