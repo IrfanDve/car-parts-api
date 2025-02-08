@@ -1,0 +1,605 @@
+{
+	"info": {
+		"_postman_id": "d7e27355-500d-4b07-b512-e79e667963a7",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39421646"
+	},
+	"item": [
+		{
+			"name": "Car Parts Api",
+			"item": [
+				{
+					"name": "Car Parts Management",
+					"item": [
+						{
+							"name": "List all car parts (with filtering and pagination)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/car-parts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "min_price",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "max_price",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "",
+											"description": "Default 10",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new car part.",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/car-parts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "stock_quantity",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get details of a specific car part",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/car-parts/{id}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts",
+										"{id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Car Part",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/car-parts/{id}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts",
+										"{id}"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "stock_quantity",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Car Part",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/car-parts/{id}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts",
+										"{id}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order Management",
+					"item": [
+						{
+							"name": "List all orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/orders",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Place a new order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"items\": [\r\n    {\r\n      \"car_part_id\": 1,\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/orders",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get details of a specific order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/orders/{id}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders",
+										"{id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update order status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/orders/{order}/update-status",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders",
+										"{order}",
+										"update-status"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "completed",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Authentication",
+					"item": [
+						{
+							"name": "User Registration",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/register?name=irfanUllah&email=irfanUllah@gmail.com&password=12345678&password_confirmation=12345678",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "irfanUllah"
+										},
+										{
+											"key": "email",
+											"value": "irfanUllah@gmail.com"
+										},
+										{
+											"key": "password",
+											"value": "12345678"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "12345678"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/login?email=irfanUllah@gmail.com&password=12345678",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "irfanUllah@gmail.com"
+										},
+										{
+											"key": "password",
+											"value": "12345678"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payment Link Creation & Validation",
+					"item": [
+						{
+							"name": "Payment Link Creation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/orders/{order}/create-payment-link",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders",
+										"{order}",
+										"create-payment-link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Payment Validation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/orders/{order}/validate-payment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"orders",
+										"{order}",
+										"validate-payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Export The Car Parts",
+					"item": [
+						{
+							"name": "Export Car parts",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/car-parts/export",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"car-parts",
+										"export"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
