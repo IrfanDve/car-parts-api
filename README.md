@@ -144,7 +144,7 @@ To make API testing easier in Postman, you can set up global variables for base_
     
     Create a new environment (e.g., Car Parts API).
     
-    Add a variable named base_url and set its value to your API's base URL (e.g., http://127.0.0.1:8000).
+    Add a variable named base_url and set its value to your API's base URL (e.g., http://127.0.0.1:8000/api).
     
     Save the environment and select it for use.
 2. **Set access_token as a Global Variable:**
