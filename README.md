@@ -136,4 +136,30 @@ Follow these steps to set up the project locally:
 #### Validate Payment
 - **POST** `/api/orders/{order}/validate-payment`
 - Response: Payment details and updated order status.
+## 
+## Notes for Using Postman
+To make API testing easier in Postman, you can set up global variables for base_url and access_token. Here's how: and
+1. **Set base_url as a Global Variable:**
+    Open Postman and go to the Environments section.
+    
+    Create a new environment (e.g., Car Parts API).
+    
+    Add a variable named base_url and set its value to your API's base URL (e.g., http://127.0.0.1:8000).
+    
+    Save the environment and select it for use.
+2. **Set access_token as a Global Variable:**
+   After logging in or registering a user, copy the access_token from the response.
+
+    Add a variable named access_token in the same environment and paste the token as its value.
+    
+    Save the environment.
+3. **Using the Variables in Requests:**
+   For the URL, use {{base_url}} followed by the endpoint (e.g., {{base_url}}/api/car-parts).
+
+   For authentication, add the access_token to the request headers:
+   ```bash
+   {
+      "Authorization": "Bearer {{access_token}}"
+    }
+This setup will save time and make testing more efficient.
 >>>>>>> 248d03b31621a6f17fa892e808f8834039a8fcfe
