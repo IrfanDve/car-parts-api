@@ -161,5 +161,18 @@ To make API testing easier in Postman, you can set up global variables for base_
    {
       "Authorization": "Bearer {{access_token}}"
     }
-This setup will save time and make testing more efficient.
+4. **Postman Collection:**
+    A Postman Collection is included in the root directory of this project.
+    
+    Download the collection file (e.g., New Collection.postman_collection.json).
+    
+    Import it into your local Postman app:
+    
+    Open Postman.
+    
+    Click on Import in the top-left corner.
+    
+    Select the downloaded collection file and click Open.
+
+This collection contains pre-configured requests for all API endpoints, making testing even easier.
 >>>>>>> 248d03b31621a6f17fa892e808f8834039a8fcfe
